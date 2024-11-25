@@ -1,0 +1,27 @@
+:root {
+  /* COLORS */
+  --color-header: #d2e0fb;
+  --color-form: #d4f6ff;
+  --color-contacts: #7ab2d3;
+  --color-add-button: #03346e;
+  --color-edit: #fffed3;
+  --text-color: #f5f5f5;
+
+  /* SPACING */
+  --spacing-x-small: 0.25rem;
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+  --spacing-x-large: 3rem;
+
+  /* FONT SIZE */
+  --font-size-small: 0.5rem;
+  --font-size-base: 1rem;
+  --font-size-medium: 1.2rem;
+  --font-size-large: 1.5rem;
+  --font-size-x-large: 2rem;
+
+  /* BORDER RADIUS */
+  --border-radius-small: 0.25rem;
+  --border-radius-medium: 0.5rem;
+}

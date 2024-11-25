@@ -6,10 +6,11 @@ const phoneInput = form.querySelector("[name='phone-number']");
 const addressInput = form.querySelector("[name='address']");
 const submitButton = form.querySelector(".form__submit-button");
 const contactList = document.querySelector(".contacts__list");
-
+const searchInput = document.querySelector(".search__input");
+const searchOption = document.querySelector(".search__filter");
 // DECLARING VARIABLES
 const contacts = JSON.parse(localStorage.getItem("contacts")) || [];
-
+let editContactId = null;
 // RENDERING CONTACTS WHEN THE PAGE FIRST LOADED
 document.addEventListener("DOMContentLoaded", () => renderContacts(contacts));
 
@@ -17,17 +18,30 @@ document.addEventListener("DOMContentLoaded", () => renderContacts(contacts));
 const addContacts = (e) => {
   e.preventDefault();
   const contact = {
-    id: Date.now(),
-    contactFirstname: firstnameInput.value,
-    contactLastname: lastnameInput.value,
-    contactPhoneNumber: phoneInput.value,
-    contactAddress: addressInput.value,
+    id: editContactId || Date.now(),
+    contactFirstname: firstnameInput.value.trim(),
+    contactLastname: lastnameInput.value.trim(),
+    contactPhoneNumber: phoneInput.value.trim(),
+    contactAddress: addressInput.value.trim(),
   };
-  contacts.push(contact);
+
+  if (editContactId) {
+    const contactIndex = contacts.findIndex(
+      (contact) => contact.id === editContactId
+    );
+    if (contactIndex !== -1) {
+      contacts[contactIndex] = contact;
+    }
+    editContactId = null;
+    submitButton.textContent = "Add Contact";
+  } else {
+    contacts.push(contact);
+  }
   storeContacts(contacts);
   renderContacts(contacts);
-  console.log(contacts);
+  form.reset();
 };
+
 // FUNCTION FOR STORING CONTACTS IN LOCAL STORAGE
 const storeContacts = (contactsArray) => {
   localStorage.setItem("contacts", JSON.stringify(contactsArray));
@@ -39,6 +53,25 @@ const deleteContacts = (id) => {
   const remainingContacts = contacts.filter((contact) => contact.id !== id);
   storeContacts(remainingContacts);
   renderContacts(remainingContacts);
+};
+
+// FUNCTION FOR EDITING CONTACTS
+const editContacts = (e, id) => {
+  const contacts = JSON.parse(localStorage.getItem("contacts"));
+  const contactToEdit = contacts.find((contact) => contact.id === id);
+  const contactRow = e.target.closest(".contacts-item");
+  if (contactToEdit) {
+    firstnameInput.value = contactToEdit.contactFirstname;
+    lastnameInput.value = contactToEdit.contactLastname;
+    phoneInput.value = contactToEdit.contactPhoneNumber;
+    addressInput.value = contactToEdit.contactAddress;
+    editContactId = id;
+    submitButton.textContent = "Update Contact";
+    contactRow.style.backgroundColor = "#FFFED3";
+  } else {
+    submitButton.textContent = "Add Contact";
+    contactRow.style.backgroundColor = "#d4f6ff";
+  }
 };
 
 // FUNCTION FOR RENDERING THE CONTACTS ON THE DOM
@@ -84,10 +117,27 @@ const renderContacts = (contactsArray) => {
 
     // ADD EVENT LISTENERS TO DELETE AND EDIT BUTTON
     deleteButton.addEventListener("click", () => deleteContacts(contact.id));
+    editButton.addEventListener("click", (e) => editContacts(e, contact.id));
   });
 };
 
 // ADD EVENT LISTENER TO THE FORM TO ADD CONTACTS
 form.addEventListener("submit", addContacts);
 
-console.log(contacts);
+// ADD EVENTLISTENER TO THE SEARCH INPUT AND MAKE IT FUNCTIONAL
+searchInput.addEventListener("input", (e) => {
+  const searchQuery = e.target.value.toLowerCase();
+  const searchOptionValue = searchOption.value;
+  const filteredArray = contacts.filter((contact) => {
+    if (searchOptionValue === "firstname") {
+      return contact.contactFirstname.toLowerCase().startsWith(searchQuery);
+    } else if (searchOptionValue === "lastname") {
+      return contact.contactLastname.toLowerCase().startsWith(searchQuery);
+    } else if (searchOptionValue === "phone") {
+      return contact.contactPhoneNumber.toLowerCase().startsWith(searchQuery);
+    } else {
+      return;
+    }
+  });
+  renderContacts(filteredArray);
+});

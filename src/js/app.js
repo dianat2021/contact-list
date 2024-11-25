@@ -49,15 +49,15 @@ const storeContacts = (contactsArray) => {
 
 // FUNCTION FOR DELETING CONTACTS FROM THE LIST
 const deleteContacts = (id) => {
-  const contacts = JSON.parse(localStorage.getItem("contacts"));
   const remainingContacts = contacts.filter((contact) => contact.id !== id);
   storeContacts(remainingContacts);
   renderContacts(remainingContacts);
+  contacts.length = 0; // Clear the existing contacts array
+  contacts.push(...remainingContacts); // Add the remaining contacts
 };
 
 // FUNCTION FOR EDITING CONTACTS
 const editContacts = (e, id) => {
-  const contacts = JSON.parse(localStorage.getItem("contacts"));
   const contactToEdit = contacts.find((contact) => contact.id === id);
   const contactRow = e.target.closest(".contacts-item");
   if (contactToEdit) {

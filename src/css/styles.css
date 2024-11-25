@@ -19,10 +19,7 @@ body {
   display: flex;
   font-family: Lato-Regular;
 }
-.contact-app__display-contacts {
-  flex-basis: 75%;
-  background-color: cornflowerblue;
-}
+
 /* STYLES FOR FORM */
 .contact-app__form-container {
   flex-basis: 25%;
@@ -70,4 +67,69 @@ body {
 }
 .form__submit-button:hover {
   opacity: 0.9;
+}
+
+/* STYLES FOR THE DISPLAY SECTION */
+.contact-app__display-contacts {
+  flex-basis: 75%;
+  display: flex;
+  flex-direction: column;
+  background-color: cornflowerblue;
+}
+/* STYLES FOR THE SEARCH */
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-small);
+  flex-basis: 10%;
+  padding: 0 var(--spacing-medium);
+  background-color: var(--color-contacts);
+}
+.search__input,
+.search__filter {
+  min-width: 160px;
+  height: 32px;
+  font-family: inherit;
+  padding: 0 var(--spacing-small);
+}
+/* STYLES FOR THE CONTACT LIST DISPLAY */
+.contacts {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-small);
+  background-color: var(--color-contacts);
+  padding: var(--spacing-medium);
+}
+.contacts__header {
+  display: flex;
+  width: 100%;
+  padding: var(--spacing-small) 0;
+  background-color: var(--color-header);
+  font-family: Lato-Bold;
+  border-radius: var(--border-radius-small);
+}
+.contacts__header span {
+  padding: var(--spacing-small);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contacts__header span:not(:last-child) {
+  border-right: 1px solid black;
+}
+.contacts__header-list-number {
+  flex-basis: 5%;
+}
+.contacts__header-fullname {
+  flex-basis: 30%;
+}
+.contacts__header-phone {
+  flex-basis: 20%;
+}
+.contacts__header-address {
+  flex-basis: 30%;
+}
+.contacts__header-controls {
+  flex-basis: 15%;
 }

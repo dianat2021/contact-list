@@ -66,7 +66,33 @@
           </div>
         </form>
       </section>
-      <section class="contact-app__display-contacts"></section>
+      <section class="contact-app__display-contacts">
+        <div class="search">
+          <label for="search">Search:</label>
+          <input
+            type="search"
+            name="search"
+            id="search"
+            class="search__input"
+          />
+
+          <select name="filter" id="filter" class="search__filter">
+            <option value="firstname">First name</option>
+            <option value="lastname">Last name</option>
+            <option value="phone">Phone number</option>
+          </select>
+        </div>
+        <div class="contacts">
+          <header class="contacts__header">
+            <span class="contacts__header-list-number">N</span>
+            <span class="contacts__header-fullname">Full name</span>
+            <span class="contacts__header-phone">Phone number</span>
+            <span class="contacts__header-address">Address</span>
+            <span class="contacts__header-controls">Controls</span>
+          </header>
+          <ul class="contacts__list"></ul>
+        </div>
+      </section>
     </main>
     <script src="./js/app.js"></script>
   </body>

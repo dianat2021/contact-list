@@ -101,7 +101,8 @@ body {
   background-color: var(--color-contacts);
   padding: var(--spacing-medium);
 }
-.contacts__header {
+.contacts__header,
+.contacts-item {
   display: flex;
   width: 100%;
   padding: var(--spacing-small) 0;
@@ -132,4 +133,47 @@ body {
 }
 .contacts__header-controls {
   flex-basis: 15%;
+}
+
+/* STYLES FOR DYNAMICALLY CREATED CONTACTS */
+.contacts-item {
+  display: flex;
+  background-color: var(--color-form);
+  border-bottom: 1px solid black;
+  font-family: Lato-Regular;
+}
+.contacts-item span {
+  display: flex;
+  padding-left: var(--spacing-small);
+  align-items: center;
+  word-break: break-word;
+}
+.contacts-item span:not(:last-child) {
+  border-right: 1px solid black;
+}
+
+.contacts-item__list-number {
+  flex-basis: 5%;
+}
+.contacts-item__fullname {
+  flex-basis: 30%;
+}
+.contacts-item__phone {
+  flex-basis: 20%;
+}
+.contacts-item__address {
+  flex-basis: 30%;
+}
+.contacts-item__controls {
+  flex-basis: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-small);
+}
+.contacts-item__controls button {
+  width: 32px;
+  height: auto;
+  cursor: pointer;
+  padding: var(--spacing-x-small) 0;
 }

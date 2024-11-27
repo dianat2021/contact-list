@@ -177,3 +177,21 @@ body {
   cursor: pointer;
   padding: var(--spacing-x-small) 0;
 }
+/* Cancel edit button styles */
+.form__cancel-edit-button {
+  display: none;
+  height: 32px;
+  cursor: pointer;
+  font-family: inherit;
+  background-color: var(--color-edit);
+  color: black;
+  border: none;
+  border-radius: var(--border-radius-small);
+}
+
+.form__cancel-edit-button:hover {
+  opacity: 0.9;
+}
+.contacts-item--highlighted {
+  background-color: #fffed3;
+}

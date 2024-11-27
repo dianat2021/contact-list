@@ -8,6 +8,7 @@ const submitButton = form.querySelector(".form__submit-button");
 const contactList = document.querySelector(".contacts__list");
 const searchInput = document.querySelector(".search__input");
 const searchOption = document.querySelector(".search__filter");
+const cancelEditButton = document.querySelector(".form__cancel-edit-button");
 // DECLARING VARIABLES
 const contacts = JSON.parse(localStorage.getItem("contacts")) || [];
 let editContactId = null;
@@ -66,14 +67,29 @@ const editContacts = (e, id) => {
     phoneInput.value = contactToEdit.contactPhoneNumber;
     addressInput.value = contactToEdit.contactAddress;
     editContactId = id;
+    contactRow.setAttribute("data-highlighted", "true");
     submitButton.textContent = "Update Contact";
-    contactRow.style.backgroundColor = "#FFFED3";
+    contactRow.classList.add("contacts-item--highlighted");
+    cancelEditButton.style.display = "block";
+    // contactRow.style.backgroundColor = "#FFFED3";
   } else {
     submitButton.textContent = "Add Contact";
     contactRow.style.backgroundColor = "#d4f6ff";
   }
 };
+const cancelEdit = (e) => {
+  e.preventDefault();
+  form.reset();
+  cancelEditButton.style.display = "none";
+  editContactId = null;
+  submitButton.textContent = "Add Contact";
+  const highlightedRow = document.querySelector(
+    ".contacts-item[data-highlighted='true']"
+  );
 
+  highlightedRow.classList.remove("contacts-item--highlighted");
+  highlightedRow.removeAttribute("data-highlighted");
+};
 // FUNCTION FOR RENDERING THE CONTACTS ON THE DOM
 const renderContacts = (contactsArray) => {
   contactList.textContent = "";
@@ -123,6 +139,9 @@ const renderContacts = (contactsArray) => {
 
 // ADD EVENT LISTENER TO THE FORM TO ADD CONTACTS
 form.addEventListener("submit", addContacts);
+
+// ADD EVENT LISTENER TO THE CANCEL EDIT BUTTON
+cancelEditButton.addEventListener("click", (e) => cancelEdit(e));
 
 // ADD EVENTLISTENER TO THE SEARCH INPUT AND MAKE IT FUNCTIONAL
 searchInput.addEventListener("input", (e) => {
